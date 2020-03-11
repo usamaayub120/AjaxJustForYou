@@ -1,0 +1,99 @@
+<?php
+echo 'in template';
+?>
+<span style="font-weight: 400;">This is custom front view.</span>
+
+<script>
+        // define is used to register a module in require js
+        require(["jquery" ], function($){
+            //your js code here
+            jQuery(function() {
+
+                var items_<?php echo $dept->getId()?> = $("#hotdeals-<?php echo $dept->getId()?> .q-slider li");
+                var visible_at_once = getVisibleAtOnce();
+                var last_item_index_<?php echo $dept->getId()?> = items_<?php echo $dept->getId()?>.length;
+
+                var first_active_<?php echo $dept->getId()?> = 0;
+                var last_active_<?php echo $dept->getId()?> = visible_at_once;
+
+                var active_items_<?php echo $dept->getId()?> = items_<?php echo $dept->getId()?>.slice(first_active_<?php echo $dept->getId()?>, last_active_<?php echo $dept->getId()?>);
+                active_items_<?php echo $dept->getId()?>.toggleClass("active");
+
+                showQControls();
+
+                $(document).on("click", "#hotdeals-<?php echo $dept->getId()?> .q-control .next", function (e) {
+                    if (last_active_<?php echo $dept->getId()?> < last_item_index_<?php echo $dept->getId()?>) {
+                        var hide = first_active_<?php echo $dept->getId()?>;
+                        var show = last_active_<?php echo $dept->getId()?>;
+
+                        first_active_<?php echo $dept->getId()?>++;
+                        last_active_<?php echo $dept->getId()?>++;
+
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-slider li").eq(hide).removeClass("active");
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-slider li").eq(show).addClass("active");
+                        showQControls();
+
+                    }
+                });
+
+
+                $(document).on("click", "#hotdeals-<?php echo $dept->getId()?> .q-control .prev", function (e) {
+
+                    if (first_active_<?php echo $dept->getId()?> > 0) {
+                        var show = first_active_<?php echo $dept->getId()?> - 1;
+                        var hide = last_active_<?php echo $dept->getId()?> - 1;
+
+                        first_active_<?php echo $dept->getId()?>--;
+                        last_active_<?php echo $dept->getId()?>--;
+
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-slider li").eq(hide).removeClass("active");
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-slider li").eq(show).addClass("active");
+                        showQControls();
+
+                    }
+                });
+
+                function showQControls(){
+                    if(last_item_index_<?php echo $dept->getId()?> <= visible_at_once ){
+
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-control").hide();
+
+                    }else if(last_active_<?php echo $dept->getId()?> === last_item_index_<?php echo $dept->getId()?> ){
+
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-control .next").hide();
+
+                    }else if(first_active_<?php echo $dept->getId()?> === 0 ){
+
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-control .prev").hide();
+                    }
+                    else{
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-control .prev").show();
+                        $("#hotdeals-<?php echo $dept->getId()?> .q-control .next").show();
+                    }
+                }
+                function getVisibleAtOnce(){
+
+                    var screenWidth = $(window).width();
+
+                    visible_at_once = 5;
+                    if(screenWidth > 767){
+                        visible_at_once = 5;
+                    }
+                    else if(screenWidth <= 767 && screenWidth > 680){
+                        visible_at_once = 4;
+                    }
+                    else if (screenWidth <= 680 && screenWidth >560) {
+                        visible_at_once = 3;
+                    }
+                    else if (screenWidth <= 560 && screenWidth >350) {
+                        visible_at_once = 2;
+                    }
+                    else if (screenWidth <= 350){
+                        visible_at_once = 1;
+                    }
+                    return visible_at_once;
+                }
+
+            });
+        });
+    </script>

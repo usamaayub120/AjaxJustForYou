@@ -1,0 +1,170 @@
+<div class="eezy-footer">
+    <div class="eezy-col desktop">
+        <ul class="my-account">
+            <li class="title uppercase">
+<!--                <a href="--><?php //echo $block->getUrl("customer/account")?><!--">-->
+                    <strong>My Account</strong>
+<!--                </a>-->
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("customer/account/edit")?>">
+                    <span>My Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("sales/order/history")?>">
+                    <span>My Orders</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("rltsquare_subscription/customer/subscription")?>">
+                    <span>My Subscriptions</span>
+                </a>
+            </li>
+<!--            <li>-->
+<!--                <a href="--><?php //echo $block->getUrl("customer/account")?><!--">-->
+<!--                    <span>My <span class="orange-eezy">EEZY</span> List</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <a href="--><?php //echo $block->getUrl("customer/account")?><!--">-->
+<!--                    <span>My <span class="orange-eezy">EEZY<span> Points</span>-->
+<!--                </a>-->
+<!--            </li>-->
+        </ul>
+    </div>
+    <div class="eezy-col desktop">
+        <ul class="our-company">
+            <li class="title uppercase">
+<!--                <a href="--><?php //echo $block->getUrl("company")?><!--">-->
+                    <strong>Our Company</strong>
+<!--                </a>-->
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("about-us")?>">
+                    <span>About Us</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("contact")?>">
+                    <span>Contact Us</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("careers")?>">
+                    <span>Careers</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("advertise")?>">
+                    <span>Advertise With Us</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("faqs")?>">
+                    <span>FAQ's</span>
+                </a>
+            </li>
+            <!--<li>
+                <a href="<?php /*echo $block->getUrl("affiliate")*/?>">
+                    <span>Affiliate Partners</span>
+                </a>
+            </li>-->
+        </ul>
+    </div>
+    <div class="eezy-col desktop">
+        <ul class="our-policies">
+            <li class="title uppercase">
+<!--                <a href="--><?php //echo $block->getUrl("policy")?><!--">-->
+                    <strong>Our Policies</strong>
+<!--                </a>-->
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("policy")?>">
+                    <span>Privacy Policy</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("return-policy")?>">
+                    <span>Exchange & Returns</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("refund-policy")?>">
+                    <span>Refund Policy</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("bulk-buying")?>">
+                    <span>Corporate & Bulk Buying</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("rider/index/riderapplication")?>">
+                    <span>Become a Freelance Rider</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $block->getUrl("shipping-methods")?>">
+                    <span>Shipping Methods</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="eezy-col">
+        <strong class="title uppercase">Subscribe to Newsletter</strong>
+        <div class="newsletter">
+            <form class="form subscribe"
+                  novalidate
+                  action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+                  method="post"
+                  data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+                  id="newsletter-validate-detail">
+                <div class="field newsletter">
+                    <div class="control">
+                        <input name="name" type="text" id="newsletterName"
+                               placeholder="<?= $block->escapeHtmlAttr(__('Your Name')) ?>" />
+                        <input name="email" type="email" id="newsletter"
+                               placeholder="<?= $block->escapeHtmlAttr(__('Your Email')) ?>"
+                               data-validate="{required:true, 'validate-email':true}"/>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="action subscribe primary" title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>" type="submit">
+                        <span><?= $block->escapeHtml(__('Submit Now')) ?></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="helpline">
+            <span>24/7 Helpline 111-11-3399 <span class="orange-eezy">(EEZY)</span></span></br>
+            <span>24/7 Helpline 042-35782737-39 </span>
+            <div class="social">
+                <a href="https://www.facebook.com/EezyPk/" target= _blank>
+                    <i class="fab fa-facebook-square"></i>
+                </a>
+                <a href="https://twitter.com/EEZY_Inc" target= _blank>
+                    <i class="fab fa-twitter-square"></i>
+                </a>
+                <a href="https://www.instagram.com/eezy.inc/" target= _blank>
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/eezy-group" target= _blank>
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+        <div class="payment-methods">
+            <img src="<?php echo $block->getViewFileUrl('images/footer/payment/visa.png') ?>">
+            <img src="<?php echo $block->getViewFileUrl('images/footer/payment/mastercard.png') ?>">
+            <img src="<?php echo $block->getViewFileUrl('images/footer/payment/easypaisa.png') ?>">
+            <img src="<?php echo $block->getViewFileUrl('images/footer/payment/cash.png') ?>">
+        </div>
+        <div class="app-stores">
+            <img src="<?php echo $block->getViewFileUrl('images/footer/googleplay.png') ?>">
+            <img src="<?php echo $block->getViewFileUrl('images/footer/iosappstore.png') ?>">
+        </div>
+    </div>
+ </div>

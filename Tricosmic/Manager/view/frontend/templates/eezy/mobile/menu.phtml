@@ -1,0 +1,177 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Customer\Block\Account\AuthorizationLink */
+
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+
+$categoryPageHelper = $this->helper('RLTSquare\CategoryPage\Helper\Category');
+$depts = $categoryPageHelper->getAllDepts();
+
+$customerEmail = $customerSession->getCustomer()->getEmail(); // get Email
+$customerName = $customerSession->getCustomer()->getFirstname();  // get  Full Name
+
+?>
+
+<div class="three-bar-menu mobile">
+    <?php if ($block->isLoggedIn()) : ?>
+        <div class="menu-item" >
+            <span class="customer">
+                <div class="image">
+                    <img src="<?php echo $block->getViewFileUrl('images/header/account.png') ?>">
+                </div>
+                <span class="customer-information">
+                    <span class="customer-name"><?php echo $customerName ?></span>
+                    <span class="customer-email"><?php echo $customerEmail ?></span>
+                </span>
+            </span>
+        </div>
+    <?php endif; ?>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-home menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getBaseUrl() ?>"><span class="level-one">Home</span></a></span>
+        </div>
+    <?php if (!$block->isLoggedIn()) : ?>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-reply rotate-180 menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("customer/account/login/") ?>"><span class="level-one">Login</span></a></span>
+        </div>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-user menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("customer/account/create/") ?>"><span class="level-one">Signup</span></a></span>
+        </div>
+    <?php endif;?>
+        <div class="menu-item departments " >
+            <span class="main parent"><span class="icon"><i class="fa fa-shopping-bag menu-icon" aria-hidden="true"></i></span><a href="#"><span>Shop By Department</span></a></span>
+            <div class="menu-children children">
+                
+                <?php  foreach ($depts as $dept): ?>
+                    <div class="second-level-menu">
+                    <?php if($dept->getChildrenCount()):?>
+                        <span class="icon"></span>
+                        
+                        <span class="<?= strtolower(str_replace(" ","-",$dept->getName()))?><?= $dept->getChildrenCount()? ' parent':'' ?>"><a style="display: inline-block;font-size: 16px;" href="<?= $dept->getUrl() ?>"><?= $dept->getName() ?></a></span>
+                        
+
+                        <?php if($dept->getChildrenCount()): ?>
+                        <?php $categories = $dept->getChildrenCategories() ?>
+                        <div class="menu-children children">
+                            <?php  foreach ($categories as $category): ?>
+                            <div class="third-level-menu">
+                                <span class="icon"></span>
+                                <span class="<?= $category->getChildrenCount()? ' parent':'' ?>"><a href="<?= $category->getUrl() ?>"><span><?= $category->getName() ?></span></a></span>
+                                <?php $thirdCategories = $category->getChildrenCategories() ?>
+                                <div class="menu-sub-children children">
+                                    <?php  foreach ($thirdCategories as $thirdCategory): ?>
+                                        <div class="fourth-level-menu">
+                                            <span class="icon"></span>
+                                            <span class="<?= $thirdCategory->getChildrenCount()? ' parent':'' ?>"><a href="<?= $thirdCategory->getUrl() ?>"><span><?= $thirdCategory->getName() ?></span></a></span>
+
+                                <?php $fourthCategories = $thirdCategory->getChildrenCategories() ?>
+                                <div class="menu-sub-children children">
+                                    <?php  foreach ($fourthCategories as $fourthCategory): ?>
+                                        <div class="fourth-level-menu">
+                                            <span class="icon"></span>
+                                            <span class="last-child"><a href="<?= $fourthCategory->getUrl() ?>"><span><?= $fourthCategory->getName() ?></span></a></span>
+                                        </div>
+                                    <?php endforeach ?>    
+                                </div>
+
+
+                                        </div>
+                                    <?php endforeach ?>    
+                                </div>
+                            </div>
+                            <?php  endforeach; ?>
+
+                        </div>
+                        <?php  endif; ?>
+                    <?php  else: ?>
+                        <span >
+                            <a href="<?= $dept->getUrl() ?>">
+                                <span class="<?= strtolower(str_replace(" ","-",$dept->getName()))?>">
+                                    <?= $dept->getName() ?>
+                                </span>
+                            </a>
+                        </span>
+                    <?php  endif; ?>
+                </div>
+                <?php  endforeach; ?>
+            </div>
+        </div>
+
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-calendar menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("listing/hotdeals/alldeals/") ?>"><span class="level-one red">Deals & Promotions</span></a></span>
+        </div>
+    <?php if ($block->isLoggedIn()) : ?>
+        <div class="menu-item has-child" >
+            <span class="parent main"><span class="icon"><i class="fa fa-user menu-icon" aria-hidden="true"></i></span>My Account</span>
+            <div class="menu-children children">
+                <span><a href="<?php echo $block->getUrl("customer/account") ?>"><span>Account Dashboard</span></a></span>
+                <span class="parent">My Order</span>
+                <div class="menu-sub-children children">
+                    <span><a href="<?php echo $block->getUrl("sales/order/history?type=simple") ?>"><span>One Time Order</span></a></span>
+                    <span><a href="<?php echo $block->getUrl("sales/order/history?type=subscription") ?>"><span>Subcription Order</span></a></span>
+                    <span><a href="<?php echo $block->getUrl("sales/order/history?type=schedule") ?>"><span>Scheduled Order</span></a></span>
+                </div>
+                <span><a href="<?php echo $block->getUrl("rltsquare_subscription/customer/subscription") ?>"><span>My Subscription</span></a></span>
+                <span><a href="<?php echo $block->getUrl("wishlist") ?>"><span>My Wishlist</span></a></span>
+                <span><a href="<?php echo $block->getUrl("customer/ account/edit") ?>"><span>Account Information</span></a></span>
+                <span><a href="<?php echo $block->getUrl("customer/address") ?>"><span>Address Book</span></a></span>
+                <span><a href="<?php echo $block->getUrl("review/customer") ?>"><span>My Product Reviews</span></a></span>
+            </div>
+        </div>
+    <?php endif; ?>
+        <div class="menu-item has-child " >
+            <span class="parent main"><span class="icon"><i class="fa fa-lock menu-icon" aria-hidden="true"></i></span><span class="level-one" style="padding-left: 10px;">Our Policies</span></span>
+            <div class="menu-children children policies">
+                <div class="fourth-level-menu"><span class="icon"></span><span class=""><a href="<?php echo $block->getUrl("policy") ?>"><span>Privacy Policy</span></a></span></div>
+                <div class="fourth-level-menu"><span class="icon"></span><span><a href="<?php echo $block->getUrl("return-policy") ?>"><span>Exchange and Returns</span></a></span></div>
+                <div class="fourth-level-menu"><span class="icon"></span><span><a href="<?php echo $block->getUrl("refund-policy") ?>"><span>Refund Policy</span></a></span></div>
+                <div class="fourth-level-menu"><span class="icon"></span><span><a href="<?php echo $block->getUrl("bulk-buying") ?>"><span>Corporate & Bulk Buying</span></a></span></div>
+                <div class="fourth-level-menu"><span class="icon"></span><span><a href="<?php echo $block->getUrl("rider/index/riderapplication") ?>"><span>Freelance Rider</span></a></span></div>
+                <div class="fourth-level-menu"><span class="icon"></span><span><a href="<?php echo $block->getUrl("faqs") ?>"><span>Faqs</span></a></span></div>
+            </div>
+        </div>
+        <div class="menu-item " >
+            <span class="main"><span class="icon"><i class="fa fa-phone menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("contact") ?>"><span class="level-one">Contact Us</span></a></span>
+        </div>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-info menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("about-us") ?>"><span class="level-one">About Us</span></a></span>
+        </div>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-bullhorn menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("advertise") ?>"><span class="level-one">Advertise with Us</span></a></span>
+        </div>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-male menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("careers") ?>"><span class="level-one">Career at EEZY</span></a></span>
+        </div>
+    <?php if ($block->isLoggedIn()) : ?>
+        <div class="menu-item" >
+            <span class="main"><span class="icon"><i class="fa fa-reply menu-icon" aria-hidden="true"></i></span><a href="<?php echo $block->getUrl("customer/account/logout/") ?>"><span class="level-one">Logout</span></a></span>
+        </div>
+    <?php endif;?>
+</div>
+
+<script>
+    // define is used to register a module in require js
+    require(["jquery" ], function($){
+        //your js code here
+        jQuery(function() {
+
+            jQuery('.three-bar-menu.mobile').clone().appendTo('#store\\.menu');
+            // jQuery('#store\\.menu .navigation').remove();
+
+            jQuery(document).on("click",".three-bar-menu.mobile .parent",function(e) {
+
+                $(this).next(".children").toggle();
+                $(this).toggleClass('active');
+
+            });
+
+        });
+    });
+</script>

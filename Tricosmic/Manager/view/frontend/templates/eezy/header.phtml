@@ -1,0 +1,42 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+?>
+<div class="eezy-header <?php if($customerSession->isLoggedIn()){ echo "logged-in"; } ?>">
+	<div class="eezy-col left">
+		<div class="eezy-logo">
+			<?php echo $this->getChildHtml('logo'); ?>
+		</div>
+		<div class="eezy-home">
+            <i class="fas fa-home"></i>
+		</div>
+        <div class="eezy-location">
+	        <?php echo $this->getChildHtml('rltsquare.userlocation.link'); ?>
+        </div>
+    </div>
+    <div class="eezy-col center">
+	    <?php echo $this->getChildHtml('eezy.header.categories.button'); ?>
+        <?php echo $this->getChildHtml('topSearch'); ?>
+	</div>
+	<div class="eezy-col right">
+        <div class="eezy-country-chagner">
+            <i class="fas fa-globe"></i>
+        </div>
+        <div class="eezy-wishlist">
+            <div class="eezy-wishlist-block">
+                <i class="far fa-heart"></i>
+                <span class="wishlist-counter">3</span>
+            </div>
+        </div>
+        <div class="eezy-subscribe">
+            <i class="fas fa-redo-alt"></i>
+        </div>
+        <div class="eezy-minicart">
+            <?php echo $this->getChildHtml('minicart'); ?>
+        </div>
+        <div class="eezy-links">
+			<?php echo $this->getChildHtml('header.links'); ?>
+        </div>
+    </div>
+</div>

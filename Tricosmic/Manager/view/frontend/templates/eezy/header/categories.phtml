@@ -1,0 +1,25 @@
+<button class="categories"><span>Categories</span><i class="fas fa-chevron-down"></i></button>
+<div class="eezy-header-cateagories">
+    <div class="arrow-up"></div>
+    <?php echo $this->getChildHtml('eezy.header.categories'); ?>
+</div>
+
+<script>
+    // define is used to register a module in require js
+    require(['jquery'], function($){
+        //your js code here
+        jQuery(function() {
+
+            if ($(window).width() < 768) {
+                $(".eezy-header-cateagories").remove();
+            }
+
+            $(document).on("click",".eezy-header button.categories",function(e) {
+
+                $(".eezy-header-cateagories").toggle();
+
+            });
+
+        });
+    });
+</script>
